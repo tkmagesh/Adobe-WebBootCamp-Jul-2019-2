@@ -3,6 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Greeter</title>
+	<script>
+		function greetUser(){
+			var txtUserName = document.getElementById('txtUserName');
+			var userName = txtUserName.value;
+			var greetMessage = `Hi ${userName}, Have a nice day`;
+			var divMessage = document.getElementById('divMessage');
+			divMessage.innerText = greetMessage;
+		}
+		function init(){
+			var btnGreet = document.getElementById('btnGreet');
+			btnGreet.addEventListener('click', greetUser);
+		}
+		window.addEventListener('load', init);
+	</script>
 </head>
 <body>
 	<h1>Greeter</h1>
