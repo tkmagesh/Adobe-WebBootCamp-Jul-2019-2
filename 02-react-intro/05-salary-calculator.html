@@ -20,6 +20,12 @@
 			padding-right : 10px;
 			font-size:18pt;
 		}
+		.poorSalary{
+			color : red;
+		}
+		.goodSalary{
+			color : green;
+		}
 	</style>
 	<script type="text/babel">
 		class SalaryCalculator extends React.Component{
@@ -35,13 +41,10 @@
 				let data = this.state;
 				return(
 					<section>
-						<div className="field">
-							<label htmlFor="">Basic :</label>
-							<input type="number" onChange={ evt => this.setState({basic : parseInt(evt.target.value)})} />
-						</div>
+						<SalaryCalculatorInput labelText="Basic :" onValueChange={ value => this.setState({basic: value})}/>
 						<div className="field">
 							<label htmlFor="">HRA :</label>
-							<input type="number" onChange={ evt => this.setState({hra : parseInt(evt.target.value)})} />
+							<input type="number" defaultValue="0" onChange={ evt => this.setState({hra : parseInt(evt.target.value)})} />
 						</div>
 						<div className="field">
 							<label htmlFor="">DA :</label>
@@ -49,32 +52,50 @@
 						</div>
 						<div className="field">
 							<label htmlFor="">Tax :</label>
-							<input type="range" min="0" max="30" onChange={ evt => this.setState({tax : parseInt(evt.target.value)})}/>
+							<input type="range" min="0" max="30" value={this.state.tax} onChange={ evt => this.setState({tax : parseInt(evt.target.value)})}/>
 						</div>
 						<div className="field">
 							<input type="button" value="Calculate" onClick={this.onCalculateClick}/>
 						</div>
-						
+						<SalaryCalculatorResult data={data}/>
 					</section>
 				)
 			}
 		}
 
-		{/*
-			<div className="field">
-				<table>
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		*/}
+		class SalaryCalculatorInput extends React.Component{
+			render(){
+				let { labelText, onValueChange } = this.props;
+				return(
+					<div className="field">
+						<label htmlFor="">{labelText}</label>
+						<input type="number" defaultValue="0" onChange={ evt => onValueChange(parseInt(evt.target.value))} />
+					</div>
+				)
+			}
+		}
+
+		class SalaryCalculatorResult extends React.Component{
+			render(){
+				let { basic, hra, da, tax, salary } = this.props.data;
+				let salaryEle = salary > 10000 ? (<td className="goodSalary">{salary}</td>) : (<td className="poorSalary">{salary}</td>);
+				return(
+					<div className="field">
+						<table>
+							<tbody>
+								<tr>
+									<td>{basic}</td>
+									<td>{hra}</td>
+									<td>{da}</td>
+									<td>{tax}</td>
+									{salaryEle}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				);
+			}
+		}
 		ReactDOM.render(<SalaryCalculator />,
 			document.getElementById('root'));
 	</script>
