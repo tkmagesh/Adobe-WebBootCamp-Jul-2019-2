@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Salary Calculator</title>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script src="babel.min.js"></script>
+	<style>
+		body{
+			marging-left : 50px;
+		}
+		.field{
+			margin-bottom : 10px;
+		}
+		label{
+			display : block;
+		}
+		td{
+			padding-right : 10px;
+			font-size:18pt;
+		}
+	</style>
+	<script type="text/babel">
+		class SalaryCalculator extends React.Component{
+			state = { basic : 0, hra : 0, da : 0, tax : 0,salary : 0};
+
+			onCalculateClick = () => {
+				let { basic, hra, da, tax } = this.state;
+				let gross = basic + hra + da;
+				let net = gross * ((100-tax)/100);
+				this.setState({salary : net});
+			}
+			render(){
+				let data = this.state;
+				return(
+					<section>
+						<div className="field">
+							<label htmlFor="">Basic :</label>
+							<input type="number" onChange={ evt => this.setState({basic : parseInt(evt.target.value)})} />
+						</div>
+						<div className="field">
+							<label htmlFor="">HRA :</label>
+							<input type="number" onChange={ evt => this.setState({hra : parseInt(evt.target.value)})} />
+						</div>
+						<div className="field">
+							<label htmlFor="">DA :</label>
+							<input type="number" onChange={ evt => this.setState({da : parseInt(evt.target.value)})} />
+						</div>
+						<div className="field">
+							<label htmlFor="">Tax :</label>
+							<input type="range" min="0" max="30" onChange={ evt => this.setState({tax : parseInt(evt.target.value)})}/>
+						</div>
+						<div className="field">
+							<input type="button" value="Calculate" onClick={this.onCalculateClick}/>
+						</div>
+						
+					</section>
+				)
+			}
+		}
+
+		{/*
+			<div className="field">
+				<table>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		*/}
+		ReactDOM.render(<SalaryCalculator />,
+			document.getElementById('root'));
+	</script>
+</head>
+<body>
+	<h1>Salary Calculator</h1>
+	<hr>
+	<div id="root"></div>
+</body>
+</html>
