@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Intro</title>
+	<script src="react.development.js"></script>
+	<script src="react-dom.development.js"></script>
+	<script>
+		window.addEventListener('load', init);
+		function init(){
+			var btnReactRender = document.getElementById('btnReactRender');
+			btnReactRender.addEventListener('click', onBtnReactRenderClick);
+
+			var btnDomRender = document.getElementById('btnDomRender');
+			btnDomRender.addEventListener('click', onBtnDomRenderClick);
+		}
+
+		function onBtnDomRenderClick(){
+			var domRoot = document.getElementById('dom-root');
+			domRoot.innerHTML = '<h1>Welcome to React.js</h1>';
+		}
+
+		var counter= 0;
+		function onBtnReactRenderClick(){
+			++counter;
+			var heading = React.createElement('h1', { id : 'heading - 1'}, 'Welcome to React.js - ' + counter);
+			ReactDOM.render(heading, document.getElementById('react-root'));
+			document.getElementById('counter').innerText = counter;
+		}
+
+	</script>
+</head>
+<body>
+	<input type="button" value="DOM Render" id="btnDomRender">
+	<div id="dom-root"></div>
+	<input type="button" value="React Render" id="btnReactRender">
+	<div id="counter">0</div>
+	<div id="react-root"></div>
+</body>
+</html>
