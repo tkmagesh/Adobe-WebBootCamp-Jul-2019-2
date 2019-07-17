@@ -4,13 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import SM from './stateManager/SM';
+import store from './store';
+import Spinner from './spinner';
 
-window['SM'] = SM;
+//window['store'] = store;
 
-//add(10,20);
+function renderApp(){
+	ReactDOM.render(<Spinner store={store} />, document.getElementById('root'));
+}
 
-ReactDOM.render(<App />, document.getElementById('root'));
+renderApp();
+store.subscribe(renderApp);
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
