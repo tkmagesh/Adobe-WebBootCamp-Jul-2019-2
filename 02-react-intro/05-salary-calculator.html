@@ -8,7 +8,7 @@
 	<script src="babel.min.js"></script>
 	<style>
 		body{
-			marging-left : 50px;
+			margin-left : 50px;
 		}
 		.field{
 			margin-bottom : 10px;
@@ -54,39 +54,39 @@
 			}
 		}
 
-		class SalaryCalculatorInput extends React.Component{
-			render(){
-				let { labelText, onValueChange, type="number", ...attrs } = this.props;
-				return(
-					<div className="field">
-						<label htmlFor="">{labelText}</label>
-						<input type={type} defaultValue="0" {...attrs} onChange={ evt => onValueChange(parseInt(evt.target.value))} />
-					</div>
-				)
-			}
-		}
+		
+		let SalaryCalculatorInput = (props) => {
+			let { labelText, onValueChange, type="number", ...attrs } = props;
+			return(
+				<div className="field">
+					<label htmlFor="">{labelText}</label>
+					<input type={type} defaultValue="0" {...attrs} onChange={ evt => onValueChange(parseInt(evt.target.value))} />
+				</div>
+			)
+		};
+		
 
-		class SalaryCalculatorResult extends React.Component{
-			render(){
-				let { basic, hra, da, tax, salary } = this.props.data;
-				let salaryEle = salary > 10000 ? (<td className="goodSalary">{salary}</td>) : (<td className="poorSalary">{salary}</td>);
-				return(
-					<div className="field">
-						<table>
-							<tbody>
-								<tr>
-									<td>{basic}</td>
-									<td>{hra}</td>
-									<td>{da}</td>
-									<td>{tax}</td>
-									{salaryEle}
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				);
-			}
-		}
+		{/* Higher Order Componets */}
+		let SalaryCalculatorResult = (props) => {
+			let { basic, hra, da, tax, salary } = props.data;
+			let salaryEle = salary > 10000 ? (<td className="goodSalary">{salary}</td>) : (<td className="poorSalary">{salary}</td>);
+			return(
+				<div className="field">
+					<table>
+						<tbody>
+							<tr>
+								<td>{basic}</td>
+								<td>{hra}</td>
+								<td>{da}</td>
+								<td>{tax}</td>
+								{salaryEle}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			);
+		};
+		
 		ReactDOM.render(<SalaryCalculator />,
 			document.getElementById('root'));
 	</script>
