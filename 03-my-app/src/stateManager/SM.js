@@ -1,7 +1,8 @@
 
 let currentState = undefined,
 	callbacks = [],
-	reducer = null;
+	reducer = null,
+	init_action = '@@INIT/ACTION'
 	
 function getState(){
 	return currentState;
@@ -24,6 +25,7 @@ function dispatch(action){
 
 function createStore(_reducer){
 	reducer = _reducer;
+	currentState = reducer(currentState, init_action);
 	let store = { getState, subscribe, dispatch };
 	return store;
 }
