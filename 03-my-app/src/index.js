@@ -5,12 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import store from './store';
+import { spinnerActionCreators } from './spinner';
 import Spinner from './spinner';
 
 //window['store'] = store;
 
 function renderApp(){
-	ReactDOM.render(<Spinner store={store} />, document.getElementById('root'));
+	let spinnerValue = store.getState();
+	ReactDOM.render(<Spinner value={spinnerValue} dispatch={store.dispatch} actionCreators={spinnerActionCreators}/>, document.getElementById('root'));
 }
 
 renderApp();

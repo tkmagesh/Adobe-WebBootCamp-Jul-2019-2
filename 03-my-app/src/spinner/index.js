@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 
+export const spinnerActionCreators = {
+	up(){
+		let action = { type : 'UP'};
+		return action;
+	},
+	down(){
+		let action = { type : 'DOWN'};
+		return action;
+	}
+}
+
+
 class Spinner extends Component{
 	onBtnDownClick = () => {
-		let action = { type : 'DOWN'};
-		this.props.store.dispatch(action);
+		let action = this.props.actionCreators.down();
+		this.props.dispatch(action);
 	}
 
 	onBtnUpClick = () => {
-		let action = { type : 'UP'};
-		this.props.store.dispatch(action);
+		let action = this.props.actionCreators.up();
+		this.props.dispatch(action);
 	}
 	render(){
-		let { store } = this.props,
-			value = store.getState();
+		let { value } = this.props;
 		return(
 			<div>
 				<input type="button" value="Down" onClick={this.onBtnDownClick}/>
