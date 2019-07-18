@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 
 class Spinner extends Component{
-	
-	state = { delta : 0 };
-
-	onBtnDownClick = () => {
-		this.props.actionDispatchers.down(this.state.delta);
-	}
-
-	onBtnUpClick = () => {
-		this.props.actionDispatchers.up(this.state.delta);
-	}
+	state = { delta : 0 };	
 	render(){
-		let { value } = this.props;
+		let { value, up, down } = this.props,
+			{ delta } = this.state;
 		return(
 			<div>
 				<input type="number" onChange={ evt => this.setState({delta : parseInt(evt.target.value)})} />
 				<br/>
-				<input type="button" value="Down" onClick={this.onBtnDownClick}/>
+				<input type="button" value="Down" onClick={() => down(delta)}/>
 				<span> [ {value} ] </span>
-				<input type="button" value="UP" onClick={this.onBtnUpClick}/>
+				<input type="button" value="UP" onClick={() => up(delta)}/>
 			</div>
 		)
 	}
