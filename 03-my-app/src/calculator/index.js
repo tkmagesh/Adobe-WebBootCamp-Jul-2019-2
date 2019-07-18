@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 export const calculatorActionCreators = {
 	add(x,y){
@@ -57,4 +59,18 @@ class Calculator extends Component{
 	}
 }
 
-export default Calculator;
+function mapStateToProps(storeState){
+	let calculatorValue = storeState.calculatorState;
+	return { result : calculatorValue };
+}
+
+function mapDispatchToProps(dispatch){
+	let calculatorActionDispatchers = bindActionCreators(calculatorActionCreators, dispatch);
+	return calculatorActionDispatchers;
+}
+
+
+export default connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Calculator);
