@@ -23,13 +23,27 @@ function dispatch(action){
 	notifyChange();
 }
 
-function createStore(_reducer){
+export function createStore(_reducer){
 	reducer = _reducer;
 	currentState = reducer(currentState, init_action);
 	let store = { getState, subscribe, dispatch };
 	return store;
 }
 
-let SM = { createStore };
+export function bindActionCreators(actionCreators, dispatch){
+	var actionDispatchers = {};
+	for(let key in actionCreators){
+		actionDispatchers[key] = function(...args){
+			let action = actionCreators[key](...args);
+			console.log('dispatching ', action);
+			dispatch(action);
+		}
+	}
+	return actionDispatchers;
+}
+
+
+
+let SM = { createStore, bindActionCreators };
 
 export default SM;

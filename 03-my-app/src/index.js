@@ -4,15 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { bindActionCreators } from './stateManager/SM';
 import store from './store';
-import { spinnerActionCreators } from './spinner';
+import spinnerActionCreators from './spinner/actions';
 import Spinner from './spinner';
 
 //window['store'] = store;
 
+let actionDispatchers = bindActionCreators(spinnerActionCreators, store.dispatch);
+
 function renderApp(){
 	let spinnerValue = store.getState();
-	ReactDOM.render(<Spinner value={spinnerValue} dispatch={store.dispatch} actionCreators={spinnerActionCreators}/>, document.getElementById('root'));
+	ReactDOM.render(<Spinner value={spinnerValue} actionDispatchers={actionDispatchers}/>, 
+		document.getElementById('root'));
 }
 
 renderApp();

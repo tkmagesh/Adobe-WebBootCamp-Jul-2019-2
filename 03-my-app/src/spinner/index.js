@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
 
-export const spinnerActionCreators = {
-	up(){
-		let action = { type : 'UP'};
-		return action;
-	},
-	down(){
-		let action = { type : 'DOWN'};
-		return action;
-	}
-}
-
-
 class Spinner extends Component{
+	
+	state = { delta : 0 };
+
 	onBtnDownClick = () => {
-		let action = this.props.actionCreators.down();
-		this.props.dispatch(action);
+		this.props.actionDispatchers.down(this.state.delta);
 	}
 
 	onBtnUpClick = () => {
-		let action = this.props.actionCreators.up();
-		this.props.dispatch(action);
+		this.props.actionDispatchers.up(this.state.delta);
 	}
 	render(){
 		let { value } = this.props;
 		return(
 			<div>
+				<input type="number" onChange={ evt => this.setState({delta : parseInt(evt.target.value)})} />
+				<br/>
 				<input type="button" value="Down" onClick={this.onBtnDownClick}/>
 				<span> [ {value} ] </span>
 				<input type="button" value="UP" onClick={this.onBtnUpClick}/>
