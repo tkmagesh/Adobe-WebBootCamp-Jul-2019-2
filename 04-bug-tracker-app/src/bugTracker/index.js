@@ -51,13 +51,25 @@ class BugEdit extends Component{
 	}
 }
 
-class BugTracker extends Component{
-	
-	
+class BugList extends Component{
 	render(){
-		let { bugs, toggle, addNew } = this.props,
+		let { bugs, removeClosed, toggle } = this.props,
 			bugItems = bugs.map(bug => (<BugItem bug={bug} toggle={toggle} key={bug.id}></BugItem>));
+			
+		return(
+			<section className="list">
+				<ol>
+					{bugItems}					
+				</ol>
+				<input type="button" value="Remove Closed" onClick={removeClosed}/>
+			</section>
+		)
+	}
+}
 
+class BugTracker extends Component{
+	render(){
+		let { bugs, toggle, addNew, removeClosed } = this.props;
 		return(
 			<section>
 				<BugStats bugs={bugs} />
@@ -71,12 +83,7 @@ class BugTracker extends Component{
 					<input type="checkbox" name="" id="" />
 				</section>
 				<BugEdit addNew={addNew} />
-				<section className="list">
-					<ol>
-						{bugItems}					
-					</ol>
-					<input type="button" value="Remove Closed" />
-				</section>
+				<BugList bugs={bugs} toggle={toggle} removeClosed={removeClosed} />
 			</section>
 		)
 	}
