@@ -9,8 +9,6 @@ import BugList from './views/BugList';
 import BugSort from './views/BugSort';
 import BugEdit from './views/BugEdit';
 
-
-
 class BugTracker extends Component{
 	componentDidMount(){
 		this.props.load();
