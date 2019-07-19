@@ -1,7 +1,7 @@
-var currentBugId = 0;
+
 export function addNew(newBugName){
 	let newBug = { 
-		id : ++currentBugId,
+		id : 0,
 		name : newBugName,
 		isClosed : false,
 		createdAt : new Date()

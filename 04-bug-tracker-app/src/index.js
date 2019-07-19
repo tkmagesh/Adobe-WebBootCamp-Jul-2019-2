@@ -7,6 +7,10 @@ import { Provider } from 'react-redux';
 
 import * as serviceWorker from './serviceWorker';
 
+import axios from 'axios';
+
+window['axios'] = axios;
+
 ReactDOM.render(
 		<Provider store={appStore}>
 			<div>

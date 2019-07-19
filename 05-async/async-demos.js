@@ -20,7 +20,6 @@
 				var result = x + y;
 			console.log(`	[@Service] returning result`);
 			callback(result);
-			console.log('job done');
 		}, 4000);
 
 	}
