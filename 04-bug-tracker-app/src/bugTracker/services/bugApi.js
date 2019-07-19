@@ -8,8 +8,28 @@ function load(){
 		.then(response => response.data)
 }
 
+function save(bugData){
+	if (bugData.id === 0){
+		return axios
+			.post(serviceEndPoint, bugData)
+			.then(response => response.data);
+	} else {
+		return axios
+			.put(`${serviceEndPoint}/${bugData.id}`, bugData)
+			.then(response => response.data);
+	}
+}
+
+function remove(bugData){
+	return axios
+		.delete(`${serviceEndPoint}/${bugData.id}`)
+		.then(response => response.data);
+}
+
 const bugApi = { 
-	load
+	load,
+	save,
+	remove
 }
 
 export default bugApi;

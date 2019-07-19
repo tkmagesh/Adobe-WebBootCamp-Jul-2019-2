@@ -1,3 +1,5 @@
+import bugApi from '../services/bugApi';
+
 export function removeClosed(){
 	//find the closed bugs
 	return function(dispatch, getState){
@@ -6,8 +8,12 @@ export function removeClosed(){
 
 		closedBugs
 			.forEach(closedBug => {
-				let action = { type : 'REMOVE', payload : closedBug};
-				dispatch(action);
+				bugApi
+					.remove(closedBug)
+					.then(() => {
+						let action = { type : 'REMOVE', payload : closedBug};
+						dispatch(action);		
+					});
 			});
 	}
 }
